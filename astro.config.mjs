@@ -6,4 +6,7 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   site: "https://astro-nano-demo.vercel.app",
   integrations: [mdx(), sitemap(), tailwind()],
+  image: {
+    domains: ["link.storjshare.io"]
+  }
 });

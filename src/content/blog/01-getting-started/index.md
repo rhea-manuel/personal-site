@@ -1,73 +1,38 @@
 ---
-title: "Getting started"
-description: "Hit the ground running."
-date: "Mar 22 2024"
+title: "open-source character management || devlog 01"
+description: "laying the groundwork for an open-source solution to manage characters & worlds for creative projects"
+date: "Mar 6 2025"
 ---
 
-The basic configuration of Nano is pretty simple.
+For people who like writing stories & creating worlds, a common sentiment is shared among different Reddits etc. which is: how do I actually manage and organize all this information. There's hundreds of tools out there to manage them, and I wanted to take a crack at making my own with a modern technology stack & focused on utility over social features. 
 
-Edit `src/consts.ts`
+Some of the base features I'd like to include:
+- create characters
+- upload images 
+- add descriptions & tags to characters
+- filter & sort characters by tags
 
-Customize the base site
+Once the base features are implemented, I'd like to include a few extra features that separate it from other apps on the market:
+- create accounts for users & manage control over characters in a modular way (i.e: some users can add characters, some can only view them, etc.)
+- version history & recovery
 
-```ts 
-// src/consts.ts
+I did some initial research and decided on a couple tools for the stack:
 
-export const SITE: Site = {
-  NAME: "Astro Nano",
-  EMAIL: "markhorn.dev@gmail.com",
-  NUM_POSTS_ON_HOMEPAGE: 3,
-  NUM_WORKS_ON_HOMEPAGE: 2,
-  NUM_PROJECTS_ON_HOMEPAGE: 3,
-};
-```
+### Supabase (back-end)
+The actual data stored is fairly simple for a single instance, so I created a quick concept in Supabase:
+![Screenshot of initial backend design](https://link.storjshare.io/raw/jvf4cd3arbmkv7clgdkt7zy3ls5a/personal/00-33-34-395.png)
+Depending on how complicated it gets with user management, I may roll my own Spring Boot backend, but this is plenty for now.
 
-| Field | Req | Description |
-| :---- | :-- | :-----------|
-| NAME | Yes | Displayed in header and footer. Used in SEO and RSS. |
-| EMAIL | Yes | Displayed in contact section. |
-| NUM_POSTS | Yes | Limit num of posts on home page. |
-| NUM_WORKS | Yes | Limit num of works on home page. |
-| NUM_PROJECTS | Yes | Limit num of projects on home page. |
+## Next.js (front-end)
+After a little bit of debate, I decided to go with Next.js for the following:
+- file based routing 
+- server components & simplified fetch API
+- more modern
 
-Customize your page metadata
+## Storj (cloud storage)
+Since we're going to be working with a large amount of media files, an object-based cloud storage is a must. While AWS S3 is the most obvious and known solution, it's prohibitively expensive with it's egress fees. I also wanted to use this project as an opportunity to try out other S3-esque providers. I shortlisted a few, like Backblaze (best free tier) and Wasabi (no egress) but settled on Storj for the following:
+- e2e encryption
+- backup durability
+- distributed cloud is better for global performance
 
-```ts 
-// src/consts.ts
-
-export const HOME: Metadata = {
-  TITLE: "Home",
-  DESCRIPTION: "Astro Nano is a minimal and lightweight blog and portfolio.",
-};
-```
-
-| Field | Req | Description |
-| :---- | :-- | :-----------|
-| TITLE | Yes | Displayed in browser tab. Used in SEO and RSS. |
-| DESCRIPTION | Yes | Used in SEO and RSS. |
-
-Customize your social media
-
-```ts 
-// src/consts.ts
-
-export const SOCIALS: Socials = [
-  { 
-    NAME: "twitter-x",
-    HREF: "https://twitter.com/markhorn_dev",
-  },
-  { 
-    NAME: "github",
-    HREF: "https://github.com/markhorn-dev"
-  },
-  { 
-    NAME: "linkedin",
-    HREF: "https://www.linkedin.com/in/markhorn-dev",
-  }
-];
-```
-
-| Field | Req | Description |
-| :---- | :-- | :-----------|
-| NAME | Yes | Displayed in contact section as a link. |
-| HREF | Yes | External url to social media profile. |
+This is just the initial setup, I generally prefer to jump into code but I'm trying to be better about planning, so I've been laying the groundwork out a bit. In the next devlog I'll be focusing on the design & development of the basic features on the front-end.
