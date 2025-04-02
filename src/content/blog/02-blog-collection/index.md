@@ -1,3 +1,8 @@
+---
+title: "how to setup FileRun w/ Hetzner Storage Box"
+description: "a step-by-step tutorial on how to setup your own Google Drive-esque file server"
+date: "Apr 1 2025"
+---
 
 The order in which you want to do this:
 
